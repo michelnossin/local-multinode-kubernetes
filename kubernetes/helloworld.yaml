@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-kubernetes-first
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v1
+      kind: Mapping
+      name: helloworld
+      prefix: /helloworld/
+      service: hello-kubernetes-first:8090
+spec:
+  ports:
+  - name: helloworld-ui
+    port: 8090
+    targetPort: 8090
+  selector:
+    app: hello-kubernetes-first
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kubernetes-first
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-kubernetes-first
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: hello-kubernetes-first
+    spec:
+      containers:
+      - name: hello-kubernetes-first
+        image: localhost:5000/helloworld:latest
+        ports:
+        - containerPort: 8090
