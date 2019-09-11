@@ -50,5 +50,12 @@ cd <your dind dir>
 kubectl get nodes -o wide
 ```
 
-Shows the local ip's of the DIND kubernetes cluster. Use one in the following url (type in browser); (note /helloworld/<some text> is required!)
+Shows the local ip's of the DIND kubernetes cluster. Use one of them in the following url (type in browser); (note /helloworld/<some text> is required!)
 http://10.192.0.2:30000/helloworld/michel should show some nice results in the browser
+
+Once you want to use this example non-locally you would use the external ip listed in the previous command, combined with the 
+external port for the Ambassador service (In this example 80), see command below. In this case we see Pending as we do not have an external ip configured:
+
+kubectl get svc  
+hello-kubernetes-first             ClusterIP      10.100.39.36     <none>        8090/TCP                     5m13s
+nuanced-alpaca-ambassador          LoadBalancer   10.101.238.151   <pending>     80:30000/TCP,443:31532/TCP   11m
