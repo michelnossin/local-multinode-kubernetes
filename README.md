@@ -35,7 +35,7 @@ cd <your dind dir>
 
 4 Prepare local Docker registry
 ```
-./scripts/repare-docker-registry.sh  (only needed to run ONCE)
+./scripts/prepare-docker-registry.sh  (only needed to run ONCE)
 ./scripts/start-docker-repository.sh
 ./scripts/test-repo.sh
 ```
